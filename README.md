@@ -1,352 +1,111 @@
-# A.D.A V2 - Advanced Design Assistant
+# 🤖 ADA V2: The Advanced Design Assistant
 
-![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11-blue?logo=python)
-![React](https://img.shields.io/badge/React-18.2-61DAFB?logo=react)
-![Electron](https://img.shields.io/badge/Electron-28-47848F?logo=electron)
-![TTS](https://img.shields.io/badge/Dual--Engine%20TTS-Aura%202%20%2B%20ElevenLabs-FF69B4?logo=elevenlabs)
-![License](https://img.shields.io/badge/License-MIT-green)
+<p align="center">
+  <img src="https://img.shields.io/badge/Brain-Groq%20%7C%20Copilot-orange?style=for-the-badge&logo=openai" alt="Brain">
+  <img src="https://img.shields.io/badge/Voice-Deepgram%20%2B%20ElevenLabs-FF69B4?style=for-the-badge&logo=elevenlabs" alt="Voice">
+  <img src="https://img.shields.io/badge/Vision-Moondream-blue?style=for-the-badge&logo=google-cloud" alt="Vision">
+</p>
 
-> **A.D.A** = **A**dvanced **D**esign **A**ssistant
-
-ADA V2 is a sophisticated AI assistant designed for multimodal interaction. It combines Google's Gemini 2.5 Native Audio with computer vision, gesture control, and 3D CAD generation in a Electron desktop application.
+**ADA V2** is a multimodal, desktop-native AI assistant designed for high-performance interaction. Unlike standard chatbots, ADA combines real-time voice, computer vision, and hardware-level automation to serve as a true "Jarvis-like" companion for design, engineering, and daily productivity.
 
 ---
 
-## 🌟 Capabilities at a Glance
+## 🚀 The Core Philosophy
 
-| Feature | Description | Technology |
-|---------|-------------|------------|
-| **🗣️ Smart Voice** | Real-time dual-engine TTS with emotional range | Deepgram Aura-2 + ElevenLabs v3 |
-| **🧊 Parametric CAD** | Editable 3D model generation from voice prompts | `build123d` → STL |
-| **🖨️ 3D Printing** | Slicing and wireless print job submission | OrcaSlicer + Moonraker/OctoPrint |
-| **🖐️ Minority Report UI** | Gesture-controlled window manipulation | MediaPipe Hand Tracking |
-| **👁️ Face Authentication** | Secure local biometric login | MediaPipe Face Landmarker |
-| **🌐 Web Agent** | Autonomous browser automation | Playwright + Chromium |
-| **🏠 Smart Home** | Voice control for TP-Link Kasa devices | `python-kasa` |
-| **📁 Project Memory** | Persistent context across sessions | File-based JSON storage |
+ADA V2 is built on the principle of **High-Velocity Intelligence**. By separating "Utility" (speed) from "HD Expression" (fidelity), ADA delivers a response experience that feels alive, reactive, and emotionally intelligent.
 
-### 🖐️ Gesture Control Details
-
-ADA's "Minority Report" interface uses your webcam to detect hand gestures:
-
-| Gesture | Action |
-|---------|--------|
-| 🤏 **Pinch** | Confirm action / click |
-| ✋ **Open Palm** | Release the window |
-| ✊ **Close Fist** | "Select" and grab a UI window to drag it |
-
-> **Tip**: Enable the video feed window to see the hand tracking overlay.
+### 🎙️ Dual-Engine Voice Architecture
+ADA intelligently routes audio synthesis between two industry-leading engines:
+- **⚡ Deepgram Aura-2 (Fast Mode)**: For instant utility tasks, command confirmations, and status updates. Sub-100ms latency.
+- **🎭 ElevenLabs v3 (HD Mode)**: For complex explanations, storytelling, and emotional interactions. Responds to inline audio tags like `[laughs]`, `[whispers]`, and `[excited]` to provide cinematic-quality prosody.
 
 ---
 
-## 🏗️ Architecture Overview
+## 🌟 Key Capabilities
 
-```mermaid
-graph TB
-    subgraph Frontend ["Frontend (Electron + React)"]
-        UI[React UI]
-        THREE[Three.js 3D Viewer]
-        GESTURE[MediaPipe Gestures]
-        SOCKET_C[Socket.IO Client]
-    end
-    
-    subgraph Backend ["Backend (Python 3.11 + FastAPI)"]
-        SERVER[server.py<br/>Socket.IO Server]
-        ADA[ada.py<br/>Gemini Live API]
-        WEB[web_agent.py<br/>Playwright Browser]
-        CAD[cad_agent.py<br/>CAD + build123d]
-        PRINTER[printer_agent.py<br/>3D Printing + OrcaSlicer]
-        KASA[kasa_agent.py<br/>Smart Home]
-        AUTH[authenticator.py<br/>MediaPipe Face Auth]
-        PM[project_manager.py<br/>Project Context]
-    end
-    
-    UI --> SOCKET_C
-    SOCKET_C <--> SERVER
-    SERVER --> ADA
-    ADA --> WEB
-    ADA --> CAD
-    ADA --> KASA
-    SERVER --> AUTH
-    SERVER --> PM
-    SERVER --> PRINTER
-    CAD -->|STL file| THREE
-    CAD -->|STL file| PRINTER
-```
+### 🧊 Autonomous CAD Generation
+Generate and iterate on 3D designs using only your voice. 
+- Powered by `build123d` for high-precision parametric modeling.
+- Direct export to STL.
+- Multi-turn iteration: *"Make the bolt head thicker,"* or *"Add a 5mm hole to the center."*
+
+### 👁️ Multimodal Vision (Moondream)
+ADA doesn't just talk; she sees.
+- **Desktop Vision**: Capture and analyze your screen to help you debug code, explain UI elements, or find specific files.
+- **Camera Vision**: Describe the real world, recognize objects, or read text from a physical paper.
+
+### 🖐️ Gesture-Driven "Minority Report" UI
+Interact with your desktop using hand movements.
+- **Pinch to Click**: Confirm actions without touching your mouse.
+- **Fist to Drag**: Grab and move application windows in real-time.
+- **Open Palm to Release**: Drop windows exactly where you want them.
+
+### 🌐 Autonomous Web Agent
+Need to find something? ADA can browse the web for you.
+- Uses **Playwright** to autonomously navigate websites, scroll, click, and extract information.
+- Perfect for research, shopping price comparisons, or technical documentation lookups.
+
+### 🔒 Face Authentication & Security
+- **Biometric Login**: Secure the entire assistant with MediaPipe-powered face recognition.
+- **Safety Confirmations**: Critical actions (like writing files or launching browsers) require your explicit verbal or UI confirmation.
 
 ---
 
-## ⚡ TL;DR Quick Start (Experienced Developers)
+## 🏗️ Technical Stack
 
-<details>
-<summary>Click to expand quick setup commands</summary>
+- **Frontend**: React 18, Vite, Tailwind CSS, Electron.
+- **Backend**: Python 3.11 (FastAPI + Socket.io).
+- **AI Brain**: Groq (Llama 3.3-70b) & GitHub Copilot API.
+- **Vision**: Moondream Cloud API.
+- **Audio**: PyAudio (Streaming), Deepgram Aura-2, ElevenLabs v3.
+- **Automation**: PyAutoGUI & Playwright.
 
+---
+
+## 🛠️ Installation & Setup
+
+### 1. Prerequisites
+- **Python 3.11** (Highly recommended to use Conda/Miniconda).
+- **Node.js 18+**.
+- **Windows 10/11** (Optimized for Windows Terminal).
+
+### 2. Environment Setup
 ```bash
-# 1. Clone and enter
-git clone https://github.com/nazirlouis/ada_v2.git && cd ada_v2
+# Clone the repository
+git clone https://github.com/YOUR_USERNAME/ada_v2.git
+cd ada_v2
 
-# 2. Create Python environment (Python 3.11)
-conda create -n ada_v2 python=3.11 -y && conda activate ada_v2
-brew install portaudio  # macOS only (for PyAudio)
+# Create and activate Python environment
+conda create -n venv_ada python=3.11 -y
+conda activate venv_ada
+
+# Install dependencies
 pip install -r requirements.txt
 playwright install chromium
-
-# 3. Setup frontend
-npm install
-
-# 4. Create .env file
-echo "GROQ_API_KEY=your_key" >> .env
-echo "DEEPGRAM_API_KEY=your_key" >> .env
-echo "ELEVENLABS_API_KEY=your_key" >> .env
-echo "ELEVENLABS_VOICE_ID=your_voice_id" >> .env
-echo "MOONDREAM_API_KEY=your_key" >> .env
-
-# 5. Run!
-conda activate ada_v2 && npm run dev
-```
-
-</details>
-
----
-
-## 🛠️ Installation Requirements
-
-### 🆕 Absolute Beginner Setup (Start Here)
-If you have never coded before, follow these steps first!
-
-**Step 1: Install Visual Studio Code (The Editor)**
-- Download and install [VS Code](https://code.visualstudio.com/). This is where you will write code and run commands.
-
-**Step 2: Install Anaconda (The Manager)**
-- Download [Miniconda](https://docs.conda.io/en/latest/miniconda.html) (a lightweight version of Anaconda).
-- This tool allows us to create isolated "playgrounds" (environments) for our code so different projects don't break each other.
-- **Windows Users**: During install, check "Add Anaconda to my PATH environment variable" (even if it says not recommended, it makes things easier for beginners).
-
-**Step 3: Install Git (The Downloader)**
-- **Windows**: Download [Git for Windows](https://git-scm.com/download/win).
-- **Mac**: Open the "Terminal" app (Cmd+Space, type Terminal) and type `git`. If not installed, it will ask to install developer tools—say yes.
-
-**Step 4: Get the Code**
-1. Open your terminal (or Command Prompt on Windows).
-2. Type this command and hit Enter:
-   ```bash
-   git clone https://github.com/nazirlouis/ada_v2.git
-   ```
-3. This creates a folder named `ada_v2`.
-
-**Step 5: Open in VS Code**
-1. Open VS Code.
-2. Go to **File > Open Folder**.
-3. Select the `ada_v2` folder you just downloaded.
-4. Open the internal terminal: Press `Ctrl + ~` (tilde) or go to **Terminal > New Terminal**.
-
----
-
-### ⚠️ Technical Prerequisites
-Once you have the basics above, continue here.
-
-### 1. System Dependencies
-
-**MacOS:**
-```bash
-# Audio Input/Output support (PyAudio)
-brew install portaudio
-```
-
-**Windows:**
-- No additional system dependencies required!
-
-### 2. Python Environment
-Create a single Python 3.11 environment:
-
-```bash
-conda create -n ada_v2 python=3.11
-conda activate ada_v2
-
-# Install all dependencies
-pip install -r requirements.txt
-
-# Install Playwright browsers
-playwright install chromium
-```
-
-### 3. Frontend Setup
-Requires **Node.js 18+** and **npm**. Download from [nodejs.org](https://nodejs.org/) if not installed.
-
-```bash
-# Verify Node is installed
-node --version  # Should show v18.x or higher
-
-# Install frontend dependencies
 npm install
 ```
 
-### 4. 🔐 Face Authentication Setup
-To use the secure voice features, ADA needs to know what you look like.
-
-1. Take a clear photo of your face (or use an existing one).
-2. Rename the file to `reference.jpg`.
-3. Drag and drop this file into the `ada_v2/backend` folder.
-4. (Optional) You can toggle this feature on/off in `settings.json` by changing `"face_auth_enabled": true/false`.
-
----
-
-## ⚙️ Configuration (`settings.json`)
-
-The system creates a `settings.json` file on first run. You can modify this to change behavior:
-
-| Key | Type | Description |
-| :--- | :--- | :--- |
-| `face_auth_enabled` | `bool` | If `true`, blocks all AI interaction until your face is recognized via the camera. |
-| `tool_permissions` | `obj` | Controls manual approval for specific tools. |
-| `tool_permissions.generate_cad` | `bool` | If `true`, requires you to click "Confirm" on the UI before generating CAD. |
-| `tool_permissions.run_web_agent` | `bool` | If `true`, requires confirmation before opening the browser agent. |
-| `tool_permissions.write_file` | `bool` | **Critical**: Requires confirmation before the AI writes code/files to disk. |
-
----
-
-### 5. 🖨️ 3D Printer Setup
-ADA V2 can slice STL files and send them directly to your 3D printer.
-
-**Supported Hardware:**
-- **Klipper/Moonraker** (Creality K1, Voron, etc.)
-- **OctoPrint** instances
-- **PrusaLink** (Experimental)
-
-**Step 1: Install Slicer**
-ADA uses **OrcaSlicer** (recommended) or PrusaSlicer to generate G-code.
-1. Download and install [OrcaSlicer](https://github.com/SoftFever/OrcaSlicer).
-2. Run it once to ensure profiles are created.
-3. ADA automatically detects the installation path.
-
-**Step 2: Connect Printer**
-1. Ensure your printer and computer are on the **same Wi-Fi network**.
-2. Open the **Printer Window** in ADA (Cube icon).
-3. ADA automatically scans for printers using mDNS.
-4. **Manual Connection**: If your printer isn't found, use the "Add Printer" button and enter the IP address (e.g., `192.168.1.50`).
-
----
-
-### 6. 🔑 API Key Setup
-ADA uses a suite of APIs for best-in-class performance.
-
-1. **Groq / Copilot**: For the "Brain" (LLM).
-2. **Deepgram**: For high-velocity "Utility" voice (Aura-2).
-3. **ElevenLabs**: For expressive "HD" voice (v3).
-4. **Moondream**: For vision analysis.
-
-Create a `.env` file in the root `ada_v2` folder and add:
+### 3. Configuration (`.env`)
+Create a `.env` file in the root directory:
 ```env
+# Intelligence
 GROQ_API_KEY=your_groq_key
+GITHUB_COPILOT_TOKEN=your_token_here (Optional)
+
+# Voice
 DEEPGRAM_API_KEY=your_deepgram_key
 ELEVENLABS_API_KEY=your_elevenlabs_key
-ELEVENLABS_VOICE_ID=your_voice_id
+ELEVENLABS_VOICE_ID=your_voice_id_here
+
+# Vision
 MOONDREAM_API_KEY=your_moondream_key
 ```
 
-> **Note**: ADA intelligently routes between Deepgram (Speed) and ElevenLabs (Emotion) based on response context.
-
----
-
-## 🚀 Running ADA V2
-
-You have two options to run the app. Ensure your `ada_v2` environment is active!
-
-### Option 1: The "Easy" Way (Single Terminal)
-The app is smart enough to start the backend for you.
-1. Open your terminal in the `ada_v2` folder.
-2. Activate your environment: `conda activate ada_v2`
-3. Run:
-   ```bash
-   npm run dev
-   ```
-4. The backend will start automatically in the background.
-
-### Option 2: The "Developer" Way (Two Terminals)
-Use this if you want to see the Python logs (recommended for debugging).
-
-**Terminal 1 (Backend):**
+### 4. Running the Assistant
 ```bash
-conda activate ada_v2
-python backend/server.py
-```
-
-**Terminal 2 (Frontend):**
-```bash
-# Environment doesn't matter here, but keep it simple
+# Start everything concurrently
 npm run dev
 ```
-
----
-
-## ✅ First Flight Checklist (Things to Test)
-
-1. **Voice Check**: Say "Hello Ada". She should respond.
-2. **Vision Check**: Look at the camera. If Face Auth is on, the lock screen should unlock.
-3. **CAD Check**: Open the CAD window and say "Create a cube". Watch the logs.
-4. **Web Check**: Open the Browser window and say "Go to Google".
-5. **Smart Home**: If you have Kasa devices, say "Turn on the lights".
-
----
-
-## ▶️ Commands & Tools Reference
-
-### 🗣️ Voice Commands
-- "Switch project to [Name]"
-- "Create a new project called [Name]"
-- "Turn on the [Room] light"
-- "Make the light [Color]"
-- "Pause audio" / "Stop audio"
-
-### 🧊 3D CAD
-- **Prompt**: "Create a 3D model of a hex bolt."
-- **Iterate**: "Make the head thinner." (Requires previous context)
-- **Files**: Saves to `projects/[ProjectName]/output.stl`.
-
-### 🌐 Web Agent
-- **Prompt**: "Go to Amazon and find a USB-C cable under $10."
-- **Note**: The agent will auto-scroll, click, and type. Do not interfere with the browser window while it runs.
-
-### 🖨️ Printing & Slicing
-- **Auto-Discovery**: ADA automatically finds printers on your network.
-- **Slicing**: Click "Slice & Print" on any generated 3D model.
-- **Profiles**: ADA intelligently selects the correct OrcaSlicer profile based on your printer's name (e.g., "Creality K1").
-
----
-
-## ❓ Troubleshooting FAQ
-
-### Camera not working / Permission denied (Mac)
-**Symptoms**: Error about camera access, or video feed shows black.
-
-**Solution**:
-1. Go to **System Preferences > Privacy & Security > Camera**.
-2. Ensure your terminal app (e.g., Terminal, iTerm, VS Code) has camera access enabled.
-3. Restart the app after granting permission.
-
----
-
-### `GEMINI_API_KEY` not found / Authentication Error
-**Symptoms**: Backend crashes on startup with "API key not found".
-
-**Solution**:
-1. Make sure your `.env` file is in the root `ada_v2` folder (not inside `backend/`).
-2. Verify the format is exactly: `GEMINI_API_KEY=your_key` (no quotes, no spaces).
-3. Restart the backend after editing the file.
-
----
-
-### WebSocket connection errors (1011)
-**Symptoms**: `websockets.exceptions.ConnectionClosedError: 1011 (internal error)`.
-
-**Solution**:
-This is a server-side issue from the Gemini API. Simply reconnect by clicking the connect button or saying "Hello Ada" again. If it persists, check your internet connection or try again later.
-
----
-
-## 📸 What It Looks Like
-
-*Coming soon! Screenshots and demo videos will be added here.*
 
 ---
 
@@ -354,92 +113,27 @@ This is a server-side issue from the Gemini API. Simply reconnect by clicking th
 
 ```
 ada_v2/
-├── backend/                    # Python server & AI logic
-│   ├── ada.py                  # Gemini Live API integration
-│   ├── server.py               # FastAPI + Socket.IO server
-│   ├── cad_agent.py            # CAD generation orchestrator
-│   ├── printer_agent.py        # 3D printer discovery & slicing
-│   ├── web_agent.py            # Playwright browser automation
-│   ├── kasa_agent.py           # TP-Link smart home control
-│   ├── authenticator.py        # MediaPipe face auth logic
-│   ├── project_manager.py      # Project context management
-│   ├── tools.py                # Tool definitions for Gemini
-│   └── reference.jpg           # Your face photo (add this!)
-├── src/                        # React frontend
-│   ├── App.jsx                 # Main application component
-│   ├── components/             # UI components (11 files)
-│   └── index.css               # Global styles
-├── electron/                   # Electron main process
-│   └── main.js                 # Window & IPC setup
-├── projects/                   # User project data (auto-created)
-├── .env                        # API keys (create this!)
-├── requirements.txt            # Python dependencies
-├── package.json                # Node.js dependencies
-└── README.md                   # You are here!
+├── backend/            # The Brain (Python logic)
+│   ├── ada.py          # Orchestration & TTS Routing
+│   ├── server.py       # Socket.io & API Server
+│   ├── cad_agent.py    # build123d Logic
+│   └── web_agent.py    # Playwright Automation
+├── src/                # The Body (React Frontend)
+│   ├── components/     # UI Windows & Visualizers
+│   └── App.jsx         # Main Interface logic
+├── electron/           # Desktop Shell
+└── projects/           # Persistent User Data
 ```
-
----
-
-## ⚠️ Known Limitations
-
-| Limitation | Details |
-|------------|---------|
-| **macOS & Windows** | Tested on macOS 14+ and Windows 10/11. Linux is untested. |
-| **Camera Required** | Face auth and gesture control need a working webcam. |
-| **Gemini API Quota** | Free tier has rate limits; heavy CAD iteration may hit limits. |
-| **Network Dependency** | Requires internet for Gemini API (no offline mode). |
-| **Single User** | Face auth recognizes one person (the `reference.jpg`). |
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Here's how:
-
-1. **Fork** the repository.
-2. **Create a branch**: `git checkout -b feature/amazing-feature`
-3. **Commit** your changes: `git commit -m 'Add amazing feature'`
-4. **Push** to the branch: `git push origin feature/amazing-feature`
-5. **Open a Pull Request** with a clear description.
-
-### Development Tips
-
-- Run the backend separately (`python backend/server.py`) to see Python logs.
-- Use `npm run dev` without Electron during frontend development (faster reload).
-- The `projects/` folder contains user data—don't commit it to Git.
-
----
-
-## 🔒 Security Considerations
-
-| Aspect | Implementation |
-|--------|----------------|
-| **API Keys** | Stored in `.env`, never committed to Git. |
-| **Face Data** | Processed locally, never uploaded. |
-| **Tool Confirmations** | Write/CAD/Web actions can require user approval. |
-| **No Cloud Storage** | All project data stays on your machine. |
-
-> [!WARNING]
-> Never share your `.env` file or `reference.jpg`. These contain sensitive credentials and biometric data.
-
----
-
-## 🙏 Acknowledgments
-
-- **[Google Gemini](https://deepmind.google/technologies/gemini/)** — Native Audio API for real-time voice
-- **[build123d](https://github.com/gumyr/build123d)** — Modern parametric CAD library
-- **[MediaPipe](https://developers.google.com/mediapipe)** — Hand tracking, gesture recognition, and face authentication
-- **[Playwright](https://playwright.dev/)** — Reliable browser automation
 
 ---
 
 ## 📄 License
 
-This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+Distributed under the MIT License. See `LICENSE` for more information.
 
 ---
 
 <p align="center">
-  <strong>Built with 🤖 by Nazir Louis</strong><br>
-  <em>Bridging AI, CAD, and Vision in a Single Interface</em>
+  <strong>Built for ABDO by Antigravity</strong><br>
+  <em>High-Performance Multimodal Autonomy</em>
 </p>
